@@ -1,5 +1,5 @@
 from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy import DateTime, text, Boolean, ForeignKey, JSON, FLOAT
+from sqlalchemy import DateTime, text, Boolean, ForeignKey, JSON, FLOAT, Enum as SQLEnum
 from typing import List
 from typing import Optional
 from sqlalchemy import ForeignKey
@@ -7,8 +7,14 @@ from sqlalchemy import String
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import relationship
+from enum import Enum
 import datetime
 import uuid
+
+class RoomTypeEnum(str, Enum):
+    EntireSpace = "EntireSpace"
+    Room = "Room"
+    SharedRoom = "SharedRoom"
 
 class Base(DeclarativeBase):
     pass
@@ -34,6 +40,8 @@ class Place(Base):
     __tablename__ = "Place"
     id: Mapped[str] = mapped_column(String(36), primary_key = True, default = lambda: str(uuid.uuid4()))
     host: Mapped[str] = mapped_column(String(36), ForeignKey(Account.id), nullable = False)
+    tag: Mapped[str] = mapped_column(String(10), nullable = True)
+    roomType: Mapped[str] = mapped_column(SQLEnum(RoomTypeEnum), nullable = True)
     pictures: Mapped[list[str]] = mapped_column(JSON, nullable = False, default = list)
     stars: Mapped[float] = mapped_column(FLOAT, nullable = False, default = 0.0)
 

@@ -32,7 +32,7 @@ import { useRouter } from "next/navigation";
 import SearchBarCategory from "./SearchBarCategory";
 import AuthForm from "./AuthForm";
 import { User } from "@/types/type";
-import { logout } from "@/lib/auth";
+import { createHosting, logout } from "@/lib/auth";
 
 type reservationType = "Stays" | "Experience";
 type dateType = "SelectDate" | "Month" | "flexible";
@@ -1533,11 +1533,19 @@ const Nav = ({ autoSpreadMode, account }: Props) => {
                       숙소 관리
                     </p>
                   </Link>
-                  <Link href="/become-a-host">
-                    <p className="w-full h-8 hover:bg-black/15 px-4 text-sm py-[0.3rem]">
-                      체험 호스팅하기
-                    </p>
-                  </Link>
+                  <button
+                    className="w-full h-8 hover:bg-black/15 px-4 text-sm py-[0.3rem] text-start"
+                    onClick={async () => {
+                      const hosting = await createHosting();
+                      if (hosting.hostingId !== undefined) {
+                        router.push(`/become-a-host/${hosting.hostingId}`);
+                      } else {
+                        alert(hosting.message);
+                      }
+                    }}
+                  >
+                    체험 호스팅하기
+                  </button>
                   <Link href="#">
                     <p className="w-full h-8 hover:bg-black/15 px-4 text-sm py-[0.3rem]">
                       호스트 추천하기

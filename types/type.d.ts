@@ -26,3 +26,8 @@ export interface User {
   name?: string;
   familyName?: string;
 }
+
+export interface NewHosting {
+  message: string;
+  hostingId: string;
+}

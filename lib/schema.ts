@@ -54,3 +54,19 @@ export const hosting = z.object({
   address: z.string(),
   image: z.array(z.string()),
 });
+
+export const tag = z.object({
+  tag: z.string().optional(),
+});
+
+export const hostingRoomType = z.object({
+  type: z.string().optional(),
+});
+
+export const address = z.object({
+  address: z.string(),
+});
+
+export const hostingImages = z.object({
+  image: z.array(z.string()),
+});

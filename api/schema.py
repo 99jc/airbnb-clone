@@ -39,3 +39,9 @@ class User(BaseModel):
     picture: Optional[str] = None
     name: Optional[str] = None
     familyName: Optional[str] = None
+
+class Tag(BaseModel):
+    tag: str
+
+class RoomType(BaseModel):
+    type: str
